@@ -2,8 +2,7 @@ package com.xantrix.webapp.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInitializer  extends AbstractAnnotationConfigDispatcherServletInitializer
-{
+public class AppInitializer  extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -12,16 +11,12 @@ public class AppInitializer  extends AbstractAnnotationConfigDispatcherServletIn
 	}
 
 	@Override
-	protected Class<?>[] getServletConfigClasses() 
-	{
-	
+	protected Class<?>[] getServletConfigClasses() {
 		return new Class[]{WebMvcConfig.class};
 	}
 
 	@Override
-	protected String[] getServletMappings() 
-	{
-		return new String[]{"/"};	
+	protected String[] getServletMappings() {
+		return new String[]{"/"};
 	}
-
 }

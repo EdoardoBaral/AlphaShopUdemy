@@ -19,7 +19,7 @@
   <%@ include file="common/navbar.jspf" %>
  
   <h1 class="title">Benvenuti in Alphashop</h1>
-   <h3 class="subtitle">Saluti ${name}, clicca <a href="/alphashop/articoli">qui</a> per vedere gli articoli disponibili!</h3>     
+   <h3 class="subtitle">Saluti ${name}, clicca <a href="/alphashop/articoli/cerca/all">qui</a> per vedere gli articoli disponibili!</h3>
  
   <script src="<c:url value="/static/js/bootstrap.bundle.min.js" />"></script>    
   </body>
