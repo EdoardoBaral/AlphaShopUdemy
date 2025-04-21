@@ -1,0 +1,1 @@
+{"connections":[{"info":{"customUrl":"jdbc:postgresql://localhost:5433/alphashop?:/","hostname":"localhost:5433/alphashop?","driver":"org.postgresql.Driver","subtype":"SDPostgreSQL","port":"","SavePassword":"false","RaptorConnectionType":"SDPostgreSQL","user":"postgres"},"name":"SpringUdemyDB","type":"jdbc"}]}
