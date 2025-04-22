@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class IndexController 
-{
-	private String saluti = "Saluti, sono la tua prima applicazione web creata in Spring 6";
+public class IndexController {
+	
+	private final String saluti = "Saluti, sono la tua prima applicazione web creata in Spring 6";
 	
 	@GetMapping(value="/")
-	public String getWelcome(Model model)
-	{
+	public String getWelcome(Model model) {
 		model.addAttribute("intestazione", "Benvenuti nella root page della webapp AlphaShop");
 		model.addAttribute("saluti", saluti);
 		
@@ -21,8 +20,7 @@ public class IndexController
 	}
 	
 	@RequestMapping(value="index")
-	public String getWelcome2(Model model,  @RequestParam(name="name",required = false,defaultValue="anonimo") String nome)
-	{
+	public String getWelcome2(Model model,  @RequestParam(name="name",required = false,defaultValue="anonimo") String nome) {
 		model.addAttribute("intestazione", String.format("Benvenuto %s nella index page della webapp AlphaShop", nome));
 		model.addAttribute("saluti", saluti);
 		
