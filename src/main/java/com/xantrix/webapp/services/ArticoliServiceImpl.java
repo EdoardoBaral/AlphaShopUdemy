@@ -39,7 +39,7 @@ public class ArticoliServiceImpl implements ArticoliService {
 
 	@Override
 	public ArticoloDto selectByBarcode(String barcode) {
-		return convertToDto(articoliRepository.selByEan(barcode));
+		return convertToDto(articoliRepository.selectByEuropeanArticleNumber(barcode));
 	}
 	
 	private ArticoloDto convertToDto(Articoli articoli) {
