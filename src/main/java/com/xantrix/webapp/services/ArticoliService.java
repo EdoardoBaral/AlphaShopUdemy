@@ -1,19 +1,15 @@
 package com.xantrix.webapp.services;
 
+import com.xantrix.webapp.dtos.ArticoloDto;
 import java.util.List;
 
-import com.xantrix.webapp.dtos.ArticoloDto;
- 
- 
-public interface ArticoliService 
-{
-	public List<ArticoloDto> SelAll();
+public interface ArticoliService {
 	
-	public ArticoloDto SelByCodArt(String codart);
+	List<ArticoloDto> selectAll();
 	
-	public List<ArticoloDto> SelByDescrizione(String filter, int page, int numrec);
+	ArticoloDto selectByCodArt(String codart);
 	
-	public ArticoloDto SelByBarcode(String barcode);
+	List<ArticoloDto> selectByDescrizione(String filter, int page, int numrec);
 	
+	ArticoloDto selectByBarcode(String barcode);
 }
-	

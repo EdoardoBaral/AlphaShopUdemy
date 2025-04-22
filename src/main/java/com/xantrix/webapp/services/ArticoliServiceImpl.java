@@ -3,6 +3,7 @@ package com.xantrix.webapp.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,71 +13,48 @@ import com.xantrix.webapp.entities.Articoli;
 import com.xantrix.webapp.repository.ArticoliRepository;
 
 @Service
-public class ArticoliServiceImpl implements ArticoliService
-{
+@RequiredArgsConstructor
+public class ArticoliServiceImpl implements ArticoliService {
 	
-	//@Autowired
-	private ArticoliRepository articoliRepository;
-	
-	private ModelMapper modelMapper;
-	
-	public ArticoliServiceImpl(
-			ArticoliRepository articoliRepository,
-			ModelMapper modelMapper)
-	{
-		this.modelMapper = modelMapper;
-		this.articoliRepository = articoliRepository;
-	}
+	private final ArticoliRepository articoliRepository;
+	private final ModelMapper modelMapper;
 	
 	@Override
-	public List<ArticoloDto> SelAll()
-	{
-		return  ConvertToDto(articoliRepository.findAll());
+	public List<ArticoloDto> selectAll() {
+		return convertToDto(articoliRepository.findAll());
 	}
 
 	@Override
-	public ArticoloDto SelByCodArt(String codart)
-	{
-		return ConvertToDto(articoliRepository.findByCodArt(codart));
+	public ArticoloDto selectByCodArt(String codart) {
+		return convertToDto(articoliRepository.findByCodArt(codart));
 	}
 
 	@Override
-	public List<ArticoloDto> SelByDescrizione(String filter, int page, int numrec)
-	{
+	public List<ArticoloDto> selectByDescrizione(String filter, int page, int numrec) {
 		filter = "%".concat(filter.toUpperCase().concat("%"));
-		
 		Pageable pageAndRecords = PageRequest.of(page, numrec);
 		
-		return ConvertToDto(articoliRepository.findByDescrizioneLike(filter, pageAndRecords));
+		return convertToDto(articoliRepository.findByDescrizioneLike(filter, pageAndRecords));
 	}
 
 	@Override
-	public ArticoloDto SelByBarcode(String barcode)
-	{
-		return ConvertToDto(articoliRepository.selByEan(barcode));
+	public ArticoloDto selectByBarcode(String barcode) {
+		return convertToDto(articoliRepository.selByEan(barcode));
 	}
 	
-	private ArticoloDto ConvertToDto(Articoli articoli)
-	{
+	private ArticoloDto convertToDto(Articoli articoli) {
 		ArticoloDto articoloDto = null;
-		
-		if (articoli != null)
-		{
+		if (articoli != null) {
 			articoloDto =  modelMapper.map(articoli, ArticoloDto.class);
 		}
 		
 		return articoloDto;
 	}
 	
-	private List<ArticoloDto> ConvertToDto(List<Articoli> articoli)
-	{		
-		List<ArticoloDto> articoloDto = articoli
-		        .stream()
-		        .map(source -> modelMapper.map(source, ArticoloDto.class))
-		        .collect(Collectors.toList());
-		
+	private List<ArticoloDto> convertToDto(List<Articoli> articoli) {
+		List<ArticoloDto> articoloDto = articoli.stream()
+		        								.map(source -> modelMapper.map(source, ArticoloDto.class))
+		        								.collect(Collectors.toList());
 		return articoloDto;
 	}
-	 
-
 }

@@ -24,7 +24,7 @@ public class ArticoliController {
 	public String getArticoli(ModelMap model) {
 		log.info("Selezioniamo tutti gli articoli");
 		
-		List<ArticoloDto> articoli = articoliService.SelAll();
+		List<ArticoloDto> articoli = articoliService.selectAll();
 		model.addAttribute("articoli", articoli);
 		
 		return "articoli";
@@ -32,7 +32,7 @@ public class ArticoliController {
 	
 	@GetMapping(value="/cerca/descrizione/{filter}")
 	public String getArticoli(@PathVariable("filter") String filter, ModelMap model) {
-		List<ArticoloDto> articoli = articoliService.SelByDescrizione(filter,0,10);
+		List<ArticoloDto> articoli = articoliService.selectByDescrizione(filter,0,10);
 		model.addAttribute("articoli", articoli);
 		
 		return "articoli";
