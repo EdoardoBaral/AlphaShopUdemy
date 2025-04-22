@@ -1,12 +1,10 @@
 package com.xantrix.webapp.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-public class IvaDto  
-{
+@Data
+public class IvaDto {
+	
 	private int idIva;
 	private String descrizione;
 	private int aliquota;

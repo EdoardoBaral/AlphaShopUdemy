@@ -1,16 +1,14 @@
 package com.xantrix.webapp.dtos;
 
+import lombok.Data;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class ArticoliDto 
-{
+@Data
+public class ArticoloDto {
+	
 	private String codart;
 	private String descrizione;	
 	private String um;
@@ -21,8 +19,8 @@ public class ArticoliDto
 	private Date data;
 	private double prezzo = 0;
 	
-	private Set<BarcodeDto> barcode = new HashSet<>();
-	private IngredientiDto ingredienti;
+	private Set<BarCodeDto> barcode = new HashSet<>();
+	private IngredienteDto ingredienti;
 	private CategoriaDto famAssort;
 	private IvaDto iva;
 }

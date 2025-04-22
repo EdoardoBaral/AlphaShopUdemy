@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.xantrix.webapp.dtos.ArticoliDto;
+import com.xantrix.webapp.dtos.ArticoloDto;
 import com.xantrix.webapp.entities.Articoli;
 import com.xantrix.webapp.repository.ArticoliRepository;
 
@@ -29,19 +29,19 @@ public class ArticoliServiceImpl implements ArticoliService
 	}
 	
 	@Override
-	public List<ArticoliDto> SelAll() 
+	public List<ArticoloDto> SelAll()
 	{
 		return  ConvertToDto(articoliRepository.findAll());
 	}
 
 	@Override
-	public ArticoliDto SelByCodArt(String codart) 
+	public ArticoloDto SelByCodArt(String codart)
 	{
 		return ConvertToDto(articoliRepository.findByCodArt(codart));
 	}
 
 	@Override
-	public List<ArticoliDto> SelByDescrizione(String filter, int page, int numrec) 
+	public List<ArticoloDto> SelByDescrizione(String filter, int page, int numrec)
 	{
 		filter = "%".concat(filter.toUpperCase().concat("%"));
 		
@@ -51,31 +51,31 @@ public class ArticoliServiceImpl implements ArticoliService
 	}
 
 	@Override
-	public ArticoliDto SelByBarcode(String barcode) 
+	public ArticoloDto SelByBarcode(String barcode)
 	{
 		return ConvertToDto(articoliRepository.selByEan(barcode));
 	}
 	
-	private ArticoliDto ConvertToDto(Articoli articoli)
+	private ArticoloDto ConvertToDto(Articoli articoli)
 	{
-		ArticoliDto articoliDto = null;
+		ArticoloDto articoloDto = null;
 		
 		if (articoli != null)
 		{
-			articoliDto =  modelMapper.map(articoli, ArticoliDto.class);
+			articoloDto =  modelMapper.map(articoli, ArticoloDto.class);
 		}
 		
-		return articoliDto;
+		return articoloDto;
 	}
 	
-	private List<ArticoliDto> ConvertToDto(List<Articoli> articoli)
+	private List<ArticoloDto> ConvertToDto(List<Articoli> articoli)
 	{		
-		List<ArticoliDto> articoliDto = articoli
+		List<ArticoloDto> articoloDto = articoli
 		        .stream()
-		        .map(source -> modelMapper.map(source, ArticoliDto.class))
+		        .map(source -> modelMapper.map(source, ArticoloDto.class))
 		        .collect(Collectors.toList());
 		
-		return articoliDto;
+		return articoloDto;
 	}
 	 
 

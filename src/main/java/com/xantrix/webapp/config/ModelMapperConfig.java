@@ -1,7 +1,7 @@
 package com.xantrix.webapp.config;
 
-import com.xantrix.webapp.dtos.ArticoliDto;
-import com.xantrix.webapp.dtos.BarcodeDto;
+import com.xantrix.webapp.dtos.ArticoloDto;
+import com.xantrix.webapp.dtos.BarCodeDto;
 import com.xantrix.webapp.entities.Articoli;
 import com.xantrix.webapp.entities.Barcode;
 import org.modelmapper.Converter;
@@ -18,7 +18,7 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setSkipNullEnabled(true);
         modelMapper.addMappings(articoliMapping);
-        modelMapper.addMappings(new PropertyMap<Barcode, BarcodeDto>() {
+        modelMapper.addMappings(new PropertyMap<Barcode, BarCodeDto>() {
 			
             @Override
             protected void configure() {
@@ -31,7 +31,7 @@ public class ModelMapperConfig {
         return modelMapper;
     }
 	
-	PropertyMap<Articoli, ArticoliDto> articoliMapping = new PropertyMap<>() {
+	PropertyMap<Articoli, ArticoloDto> articoliMapping = new PropertyMap<>() {
 	 
 		protected void configure() {
 			map().setData(source.getDataCreaz());

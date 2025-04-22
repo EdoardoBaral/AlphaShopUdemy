@@ -1,6 +1,6 @@
 package com.xantrix.webapp.controllers;
 
-import com.xantrix.webapp.dtos.ArticoliDto;
+import com.xantrix.webapp.dtos.ArticoloDto;
 import com.xantrix.webapp.services.ArticoliService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -24,7 +24,7 @@ public class ArticoliController {
 	public String getArticoli(ModelMap model) {
 		log.info("Selezioniamo tutti gli articoli");
 		
-		List<ArticoliDto> articoli = articoliService.SelAll();
+		List<ArticoloDto> articoli = articoliService.SelAll();
 		model.addAttribute("articoli", articoli);
 		
 		return "articoli";
@@ -32,7 +32,7 @@ public class ArticoliController {
 	
 	@GetMapping(value="/cerca/descrizione/{filter}")
 	public String getArticoli(@PathVariable("filter") String filter, ModelMap model) {
-		List<ArticoliDto> articoli = articoliService.SelByDescrizione(filter,0,10);
+		List<ArticoloDto> articoli = articoliService.SelByDescrizione(filter,0,10);
 		model.addAttribute("articoli", articoli);
 		
 		return "articoli";
