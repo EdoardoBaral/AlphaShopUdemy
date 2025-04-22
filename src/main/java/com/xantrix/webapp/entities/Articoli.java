@@ -60,7 +60,7 @@ public class Articoli
 	private Set<Barcode> barcode = new HashSet<>();
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Ingredienti ingredienti;
+	private Ingrediente ingrediente;
 	
 	@ManyToOne
 	@JoinColumn(name = "idiva",  referencedColumnName = "idiva")
