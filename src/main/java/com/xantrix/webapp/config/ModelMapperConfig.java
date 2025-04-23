@@ -34,7 +34,7 @@ public class ModelMapperConfig {
 	PropertyMap<Articolo, ArticoloDto> articoliMapping = new PropertyMap<>() {
 	 
 		protected void configure() {
-			map().setData(source.getDataCreazione());
+			map().setDataCreazione(source.getDataCreazione());
 			map().setStatus(source.getIdStatoArt());
 		}
 	};

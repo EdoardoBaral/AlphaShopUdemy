@@ -82,10 +82,10 @@
           <tbody>
 	          <c:forEach items="${articoli}" var="article">
 		          <tr>
-					<td class="tbl-string">${article.codart}</td>
+					<td class="tbl-string">${article.codArt}</td>
 					<td class="tbl-string">${article.descrizione}</td>
 					<td class="tbl-string">${article.um}</td>
-					<td class="tbl-string">${article.pzcart}</td>
+					<td class="tbl-string">${article.pzCart}</td>
 					<td class="tbl-string">${article.peso}</td>
 					<td class="tbl-string"><fmt:formatNumber value="${article.prezzo}" type="currency" currencyCode="USD" /></td>
 					
@@ -96,7 +96,7 @@
 		                </span>
 	                </td>
 	                
-	                <td class="tbl-string">${article.data}</td>
+	                <td class="tbl-string">${article.dataCreazione}</td>
 	                <td class="tbl-string infoBadge">
 	                	<span
 		                class="badge rounded-pill text-bg-primary">

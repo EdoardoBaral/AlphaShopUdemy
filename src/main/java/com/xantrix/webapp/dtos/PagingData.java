@@ -1,10 +1,10 @@
 package com.xantrix.webapp.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class PagingData {
 	
 	private int pageNum;
