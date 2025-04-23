@@ -57,7 +57,7 @@ public class Articoli
 	private Date dataCreaz;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Set<Barcode> barcode = new HashSet<>();
+	private Set<BarCode> barcode = new HashSet<>();
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
 	private Ingrediente ingrediente;
