@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.xantrix.webapp.dtos.ArticoloDto;
-import com.xantrix.webapp.entities.Articoli;
+import com.xantrix.webapp.entities.Articolo;
 import com.xantrix.webapp.repository.ArticoliRepository;
 
 @Service
@@ -42,17 +42,17 @@ public class ArticoliServiceImpl implements ArticoliService {
 		return convertToDto(articoliRepository.selectByEuropeanArticleNumber(barcode));
 	}
 	
-	private ArticoloDto convertToDto(Articoli articoli) {
+	private ArticoloDto convertToDto(Articolo articolo) {
 		ArticoloDto articoloDto = null;
-		if (articoli != null) {
-			articoloDto =  modelMapper.map(articoli, ArticoloDto.class);
+		if (articolo != null) {
+			articoloDto =  modelMapper.map(articolo, ArticoloDto.class);
 		}
 		
 		return articoloDto;
 	}
 	
-	private List<ArticoloDto> convertToDto(List<Articoli> articoli) {
-		List<ArticoloDto> articoloDto = articoli.stream()
+	private List<ArticoloDto> convertToDto(List<Articolo> articolo) {
+		List<ArticoloDto> articoloDto = articolo.stream()
 		        								.map(source -> modelMapper.map(source, ArticoloDto.class))
 		        								.collect(Collectors.toList());
 		return articoloDto;

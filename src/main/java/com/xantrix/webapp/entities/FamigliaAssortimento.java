@@ -1,19 +1,17 @@
 package com.xantrix.webapp.entities;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.*;
-
 @Entity
 @Table(name = "FAMASSORT")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class FamigliaAssortimento {
 	
@@ -25,5 +23,5 @@ public class FamigliaAssortimento {
 	private String descrizione;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "famigliaAssortimento")
-	private Set<Articoli> articoli = new HashSet<>();
+	private Set<Articolo> articolo = new HashSet<>();
 }

@@ -1,34 +1,21 @@
 package com.xantrix.webapp.entities;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "ARTICOLI")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Articoli 
-{
+@RequiredArgsConstructor
+public class Articolo {
+	
 	@Id
 	@Column(name = "codart")
 	private String codArt;
@@ -53,11 +40,10 @@ public class Articoli
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "datacreazione")
-	//@NotNull(message = "{NotNull.Articoli.dataCreaz.Validation}")
-	private Date dataCreaz;
+	private Date dataCreazione;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Set<BarCode> barcode = new HashSet<>();
+	private Set<BarCode> barCodes = new HashSet<>();
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
 	private Ingrediente ingrediente;
@@ -69,5 +55,4 @@ public class Articoli
 	@ManyToOne
 	@JoinColumn(name = "idfamass", referencedColumnName = "id")
 	private FamigliaAssortimento famigliaAssortimento;
-	
 }

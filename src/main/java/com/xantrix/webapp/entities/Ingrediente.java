@@ -1,12 +1,14 @@
 package com.xantrix.webapp.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "INGREDIENTI")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Ingrediente {
 	
@@ -19,5 +21,5 @@ public class Ingrediente {
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
-	private Articoli articolo;
+	private Articolo articolo;
 }

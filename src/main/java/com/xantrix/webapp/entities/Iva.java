@@ -1,15 +1,17 @@
 package com.xantrix.webapp.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "IVA")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Iva {
 	
@@ -24,5 +26,5 @@ public class Iva {
 	private int aliquota;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "iva")
-	private Set<Articoli> articoli = new HashSet<>();
+	private Set<Articolo> articolo = new HashSet<>();
 }

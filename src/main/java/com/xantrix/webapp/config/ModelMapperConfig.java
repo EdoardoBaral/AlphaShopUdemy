@@ -2,7 +2,7 @@ package com.xantrix.webapp.config;
 
 import com.xantrix.webapp.dtos.ArticoloDto;
 import com.xantrix.webapp.dtos.BarCodeDto;
-import com.xantrix.webapp.entities.Articoli;
+import com.xantrix.webapp.entities.Articolo;
 import com.xantrix.webapp.entities.BarCode;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -31,10 +31,10 @@ public class ModelMapperConfig {
         return modelMapper;
     }
 	
-	PropertyMap<Articoli, ArticoloDto> articoliMapping = new PropertyMap<>() {
+	PropertyMap<Articolo, ArticoloDto> articoliMapping = new PropertyMap<>() {
 	 
 		protected void configure() {
-			map().setData(source.getDataCreaz());
+			map().setData(source.getDataCreazione());
 			map().setStatus(source.getIdStatoArt());
 		}
 	};
