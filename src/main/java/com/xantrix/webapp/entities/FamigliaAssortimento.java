@@ -9,19 +9,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "FAMASSORT")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class FamAssort 
-{
+@Data
+@RequiredArgsConstructor
+public class FamigliaAssortimento {
+	
 	@Id
 	@Column(name = "ID")
 	private int id;
@@ -29,6 +24,6 @@ public class FamAssort
 	@Column(name = "DESCRIZIONE")
 	private String descrizione;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "famAssort")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "famigliaAssortimento")
 	private Set<Articoli> articoli = new HashSet<>();
 }

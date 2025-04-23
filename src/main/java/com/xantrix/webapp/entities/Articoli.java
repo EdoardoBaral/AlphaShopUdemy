@@ -68,6 +68,6 @@ public class Articoli
 	
 	@ManyToOne
 	@JoinColumn(name = "idfamass", referencedColumnName = "id")
-	private FamAssort famAssort;
+	private FamigliaAssortimento famigliaAssortimento;
 	
 }
