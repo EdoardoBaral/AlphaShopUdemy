@@ -12,4 +12,6 @@ public interface ArticoliService {
 	List<ArticoloDto> selectByDescrizione(String filter, int page, int numrec);
 	
 	ArticoloDto selectByBarcode(String barcode);
+	
+	int numRecords(String filter);
 }

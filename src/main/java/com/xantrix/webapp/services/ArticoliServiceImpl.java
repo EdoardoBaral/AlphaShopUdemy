@@ -57,4 +57,9 @@ public class ArticoliServiceImpl implements ArticoliService {
 		        								.collect(Collectors.toList());
 		return articoloDto;
 	}
+	
+	@Override
+	public int numRecords(String filter) {
+		return articoliRepository.countRecords(filter);
+	}
 }
