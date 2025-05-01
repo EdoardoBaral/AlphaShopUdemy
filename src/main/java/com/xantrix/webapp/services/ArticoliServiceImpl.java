@@ -60,6 +60,7 @@ public class ArticoliServiceImpl implements ArticoliService {
 	
 	@Override
 	public int numRecords(String filter) {
+		filter = "%".concat(filter.toUpperCase().concat("%"));
 		return articoliRepository.countRecords(filter);
 	}
 }

@@ -5,6 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class PagingData {
 	
 	private int pageNum;

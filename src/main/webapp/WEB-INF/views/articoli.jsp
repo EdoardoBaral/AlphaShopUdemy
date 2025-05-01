@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!doctype html>
 <html lang="en">
@@ -91,9 +93,21 @@
 										<td class="tbl-string infoBadge">
 											<span class="badge rounded-pill text-bg-primary">Normale</span>
 										</td>
-										<td class="tbl-string">${article.dataCreazione}</td>
+										<td class="tbl-string">
+										    <fmt:formatDate value="${article.dataCreazione}" pattern="dd/MM/yyyy" />
+                                        </td>
 										<td class="tbl-string infoBadge">
-											<span class="badge rounded-pill text-bg-primary">${article.status}</span>
+											<c:choose>
+                                                <c:when test="${article.status == '1'}">
+                                                    <span class="badge rounded-pill text-bg-primary">Attivo</span>
+                                                </c:when>
+                                                <c:when test="${article.status == '2'}">
+                                                    <span class="badge rounded-pill text-bg-warning">Sospeso</span>
+                                                </c:when>
+                                                <c:when test="${article.status == '3'}">
+                                                    <span class="badge rounded-pill text-bg-danger">Eliminato</span>
+                                                </c:when>
+                                            </c:choose>
 										</td>
 										<td class="text-end">
 											<button class="btn btn-light text-danger">Elimina</button>
@@ -119,6 +133,61 @@
 								</c:forEach>
 							</tbody>
 						</table>
+
+						<c:if test="${notFound}">
+                            <div class="alert alert-danger" role="alert">
+                                Nessun articolo trovato col filtro indicato!!
+                            </div>
+                        </c:if>
+
+                        <nav class="float-end mt-3" aria-label="Page navigation">
+                            <ul class="pagination">
+                                <c:if test="${page <= 1}">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" aria-label="Precedende">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Precedente</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <spring:url value="/articoli/cerca/parametri;paging=${pageNum},${recPage},-1?filter=${filtro}" var="urlPrevious" />
+
+                                <c:if test="${page > 1}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${urlPrevious}" aria-label="Precedende">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Precedente</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+
+                                <c:forEach items="${pages}" var="pagine">
+                                    <spring:url value="/articoli/cerca/parametri;paging=${pagine.pageNum},${recPage},0?filter=${filtro}" var="urlPage" />
+                                    <c:choose>
+                                        <c:when test="${pagine.isSelected}">
+                                            <li class="page-item active">
+                                                <a class="page-link" href="${urlPage}">${pagine.pageNum}</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+                                                <a class="page-link" href="${urlPage}">${pagine.pageNum}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+
+                                <spring:url value="/articoli/cerca/parametri;paging=${pageNum},${recPage},1?filter=${filtro}" var="urlNext" />
+
+                                <li class="page-item">
+                                    <a class="page-link" href="${urlNext}" aria-label="Successivo">
+                                        <span class="sr-only">Successivo</span>
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
 					</div>
 				</div>
 			</div>
