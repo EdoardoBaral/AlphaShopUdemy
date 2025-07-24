@@ -99,7 +99,8 @@ public class ArticoliController {
 	// articoli/cerca/parametri;paging=0,10;exFilter=1,15?filter=Barilla
 	@GetMapping(value="/cerca/{parametri}")
 	public String getArticoliWithParam(@MatrixVariable(pathVar="parametri") Map<String, List<String>> parametri,
-									   @RequestParam("filter") String filter,
+									   @RequestParam("filtro") String filter,
+									   @RequestParam(required=false, defaultValue="10") String selected,
 									   ModelMap model) {
 		int numArt = 0;
 		int pageNum = 0;
@@ -109,7 +110,7 @@ public class ArticoliController {
 		if(paramPaging != null) {
 			try {
 				pageNum = Integer.parseInt(paramPaging.get(0));
-				recForPage = Integer.parseInt(paramPaging.get(1));
+				recForPage = Integer.parseInt(selected);
 				int diffPage = Integer.parseInt(paramPaging.get(2));
 				
 				if(pageNum >= 1) {
