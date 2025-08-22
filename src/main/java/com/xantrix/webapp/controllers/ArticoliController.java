@@ -1,6 +1,6 @@
 package com.xantrix.webapp.controllers;
 
-import com.xantrix.webapp.dtos.ArticoloDto;
+import com.xantrix.webapp.dtos.ArticoliDto;
 import com.xantrix.webapp.dtos.PagingData;
 import com.xantrix.webapp.services.ArticoliService;
 import lombok.RequiredArgsConstructor;
@@ -20,54 +20,47 @@ import java.util.Map;
 public class ArticoliController {
 	
 	private final ArticoliService articoliService;
-	private List<PagingData> pages = new ArrayList<>();
+	
+	List<PagingData> pages = new ArrayList<>();
 	
 	@GetMapping()
-	public String getGestioneArticoli() {
+	public String getGestArt() {
 		return "articoli";
 	}
 	
-	@GetMapping(value="/cerca/all")
-	public String getArticoli(ModelMap model) {
-		log.info("Selezioniamo tutti gli articoli");
-		
-		List<ArticoloDto> articoli = articoliService.selectAll();
-		model.addAttribute("articoli", articoli);
-		
-		return "articoli";
-	}
-	
-	@GetMapping(value="/cerca/descrizione/{filter}")
+	@GetMapping(value = "/cerca/descrizione/{filter}")
 	public String getArticoli(@PathVariable("filter") String filter,
-							  @MatrixVariable(name="page", defaultValue="0") String page,
-							  @MatrixVariable(name="record", defaultValue="10") String record,
+							  @MatrixVariable(name = "page", defaultValue = "0") String page,
+							  @MatrixVariable(name = "record", defaultValue = "10") String record,
 							  ModelMap model) {
-		int pageNum = Integer.parseInt(page);
-		int recordNum = Integer.parseInt(record);
-		List<ArticoloDto> articoli = articoliService.selectByDescrizione(filter, pageNum, recordNum);
+		int pageNum = Integer.parseInt(page); //Numero della pagina
+		int recForPage = Integer.parseInt(record); //Record per pagina
+		
+		List<ArticoliDto> articoli = articoliService.selByDescrizione(filter, pageNum, recForPage);
 		model.addAttribute("articoli", articoli);
 		
 		return "articoli";
 	}
 	
-	@GetMapping(value="/search")
-	public String searchItem(@RequestParam("filtro") String filtro,
-							 @RequestParam(required=false, defaultValue="10") String selected,
+	@GetMapping(value = "/search")
+	public String searchItem(@RequestParam(name = "filtro") String filtro,
+							 @RequestParam(name = "selected", required = false, defaultValue = "10")  String selected,
 							 ModelMap model) {
-		log.info(String.format("Ricerca articoli con filtro '%s'", filtro));
+		log.info(String.format("Ricerca articoli con filtro %s ", filtro));
 		
 		int pageNum = 0;
 		int recForPage = Integer.parseInt(selected);
 		int numArt = 0;
 		boolean notFound = false;
-		ArticoloDto articolo = null;
-		List<ArticoloDto> articoli = new ArrayList<>();
 		
-		articolo = articoliService.selectByCodArt(filtro);
+		List<ArticoliDto> articoli = new ArrayList<>();
+		ArticoliDto articolo = articoliService.selByCodArt(filtro);
+		
 		if(articolo == null) {
-			articolo = articoliService.selectByBarcode(filtro);
+			articolo = articoliService.selByBarcode(filtro);
+			
 			if(articolo == null) {
-				articoli = articoliService.selectByDescrizione(filtro, pageNum, recForPage);
+				articoli = articoliService.selByDescrizione(filtro, pageNum, recForPage);
 				numArt = articoliService.numRecords(filtro);
 			} else {
 				numArt = 1;
@@ -84,33 +77,32 @@ public class ArticoliController {
 			notFound = true;
 		}
 		
-		setPages(pageNum, numArt);
+		this.setPages(pageNum, numArt);
 		
 		model.addAttribute("articoli", articoli);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("recPage", recForPage);
+		model.addAttribute("PageNum", pageNum);
+		model.addAttribute("RecPage", recForPage);
 		model.addAttribute("filtro", filtro);
-		model.addAttribute("pages", pages);
+		model.addAttribute("Pages", pages);
 		model.addAttribute("notFound", notFound);
 		
 		return "articoli";
 	}
 	
-	// articoli/cerca/parametri;paging=0,10;exFilter=1,15?filter=Barilla
-	@GetMapping(value="/cerca/{parametri}")
-	public String getArticoliWithParam(@MatrixVariable(pathVar="parametri") Map<String, List<String>> parametri,
-									   @RequestParam("filtro") String filter,
-									   @RequestParam(required=false, defaultValue="10") String selected,
-									   ModelMap model) {
+	// articoli/cerca/parametri;paging=0,10;exfilter=1,15?filtro=Barilla&selected=20
+	@GetMapping(value = "/cerca/{parametri}")
+	public String getArticoliWithPar(@MatrixVariable(pathVar = "parametri") Map<String, List<String>> parametri,
+									 @RequestParam(name="filtro") String filtro,
+									 ModelMap model) {
 		int numArt = 0;
 		int pageNum = 0;
 		int recForPage = 10;
 		
-		List<String> paramPaging = parametri.get("page");
+		//PARAMETRI PAGING
+		List<String> paramPaging = parametri.get("paging");
 		if(paramPaging != null) {
 			try {
-				pageNum = Integer.parseInt(paramPaging.get(0));
-				recForPage = Integer.parseInt(selected);
+				pageNum = Integer.parseInt(paramPaging.get(0)); //Numero della pagina
 				int diffPage = Integer.parseInt(paramPaging.get(2));
 				
 				if(pageNum >= 1) {
@@ -118,39 +110,44 @@ public class ArticoliController {
 				} else {
 					pageNum = 1;
 				}
-			} catch(NumberFormatException ex) {
+			} catch (NumberFormatException ex) {
 				pageNum = 0;
 				recForPage = 10;
 			}
 			
-			log.info(String.format("Pagina: %s, record: %s", pageNum, recForPage));
+			log.info(String.format("pagina: %s, records %s", pageNum, recForPage));
 		}
 		
-		List<String> exFilter = parametri.get("exFilter");
+		//PARAMETRI FILTRI AGGIUNTIVI
+		List<String> exFilter = parametri.get("exfilter");
 		if(exFilter != null) {
 			try {
-				log.info(String.format("Status: %s - Categoria: %s", exFilter.get(0), exFilter.get(1)));
-			} catch(Exception ex) {
-			
+				log.info(String.format("status: %s", exFilter.get(0)));
+				log.info(String.format("categoria: %s", exFilter.get(1)));
+			} catch (Exception ex) {
+				log.info("Non sono stati passati parametri aggiuntivi");
 			}
 		}
 		
-		log.info(String.format("Cerco tutti gli articoli con descrizione %s", filter));
-		List<ArticoloDto> articoli = articoliService.selectByDescrizione(filter, pageNum, recForPage);
-		numArt = articoliService.numRecords(filter);
+		log.info("Cerco tutti gli articoli con descrizione " + filtro);
+		
+		List<ArticoliDto> articoli = articoliService.selByDescrizione(filtro, pageNum, recForPage);
+		numArt = articoliService.numRecords(filtro);
+		
 		log.info(String.format("Trovati %s articoli", numArt));
 		
-		setPages(pageNum, numArt);
+		this.setPages(pageNum, numArt);
 		
 		model.addAttribute("articoli", articoli);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("recPage", recForPage);
-		model.addAttribute("filtro", filter);
-		model.addAttribute("pages", pages);
+		model.addAttribute("PageNum", pageNum);
+		model.addAttribute("RecPage", recForPage);
+		model.addAttribute("filtro", filtro);
+		model.addAttribute("Pages", pages);
 		
 		return "articoli";
 	}
 	
+	//Metodo di creazione classi Pages
 	private void setPages(int page, long numRecords) {
 		int recForPage = 10;
 		int min = 1;
@@ -158,34 +155,33 @@ public class ArticoliController {
 		int max = 5;
 		
 		page = (page == 0) ? 1 : page;
-		
 		if(pages != null) {
 			pages.clear();
 		}
 		
-		int group = (int) Math.ceil((double) page /5);
+		int group = (int) Math.ceil((double)page / 5);
 		max = group * 5;
-		min = (max - 5) == 0 ? 1 : max - 4;
+		min = (max-5 == 0) ? 1 : (max-4);
 		valMin = min;
 		
-		int maxPages = (numRecords > 0) ? (int) Math.ceil((double) numRecords / (double) recForPage) : 5;
-		while(min < max) {
+		int maxPages = (numRecords > 0) ? (int) Math.ceil((double)numRecords / (double)recForPage) : 5;
+		while (min <= max) {
 			if(min > maxPages) {
 				break;
 			}
 			
-			pages.add(new PagingData(min, false));
+			pages.add(new PagingData(min,false));
 			min++;
 		}
 		
 		try {
 			if(page - valMin > 0) {
-				pages.get(page - valMin).setSelected(true);
+				pages.get(page - valMin).setIsSelected(true);
 			} else {
-				pages.get(0).setSelected(true);
+				pages.get(0).setIsSelected(true);
 			}
-		} catch(Exception ex) {
-		
+		} catch (Exception ex) {
+			pages.get(0).setIsSelected(true);
 		}
 	}
 }

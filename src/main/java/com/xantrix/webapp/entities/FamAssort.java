@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class FamigliaAssortimento {
+public class FamAssort {
 	
 	@Id
 	@Column(name = "ID")
@@ -22,6 +22,6 @@ public class FamigliaAssortimento {
 	@Column(name = "DESCRIZIONE")
 	private String descrizione;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "famigliaAssortimento")
-	private Set<Articolo> articolo = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "famAssort")
+	private Set<Articoli> articoli = new HashSet<>();
 }

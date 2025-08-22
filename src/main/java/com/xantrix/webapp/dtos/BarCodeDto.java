@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BarCodeDto {
+public class BarcodeDto {
 	
-	private String barCode;
+	private String barcode;
 	private String idTipoArt;
 }

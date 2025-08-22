@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class IngredienteDto {
+public class IngredientiDto {
 	
 	private String codArt;
 	private String info;

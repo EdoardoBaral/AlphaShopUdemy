@@ -9,20 +9,20 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class ArticoloDto {
+public class ArticoliDto {
 	
-	private String codArt;
+	private String codart;
 	private String descrizione;	
 	private String um;
-	private String codStat;
-	private int pzCart;
+	private String codstat;
+	private int pzcart;
 	private double peso;
 	private String status;
-	private Date dataCreazione;
+	private Date data;
 	private double prezzo = 0;
 	
-	private Set<BarCodeDto> barCode = new HashSet<>();
-	private IngredienteDto ingrediente;
-	private CategoriaDto famigliaAssortimento;
+	private Set<BarcodeDto> barcode = new HashSet<>();
+	private IngredientiDto ingredienti;
+	private CategoriaDto famAssort;
 	private IvaDto iva;
 }

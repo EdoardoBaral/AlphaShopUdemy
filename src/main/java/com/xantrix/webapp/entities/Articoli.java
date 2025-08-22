@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Articolo {
+public class Articoli {
 	
 	@Id
 	@Column(name = "codart")
@@ -40,13 +40,13 @@ public class Articolo {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "datacreazione")
-	private Date dataCreazione;
+	private Date dataCreaz;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Set<BarCode> barCodes = new HashSet<>();
+	private Set<Barcode> barcode = new HashSet<>();
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Ingrediente ingrediente;
+	private Ingredienti ingredienti;
 	
 	@ManyToOne
 	@JoinColumn(name = "idiva",  referencedColumnName = "idiva")
@@ -54,5 +54,5 @@ public class Articolo {
 	
 	@ManyToOne
 	@JoinColumn(name = "idfamass", referencedColumnName = "id")
-	private FamigliaAssortimento famigliaAssortimento;
+	private FamAssort famAssort;
 }

@@ -10,16 +10,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class BarCode {
+public class Barcode {
 	
 	@Id
 	@Column(name = "BARCODE")
-	private String barCode;
+	private String barcode;
 	
 	@Column(name = "IDTIPOART")
 	private String idTipoArt;
 	
 	@ManyToOne
 	@JoinColumn(name = "codart", referencedColumnName = "codart")
-	private Articolo articolo;
+	private Articoli articolo;
 }

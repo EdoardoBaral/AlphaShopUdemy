@@ -1,13 +1,16 @@
 package com.xantrix.webapp.dtos;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class PagingData {
 	
-	private int pageNum;
-	private boolean selected;
+	private int PageNum;
+	private boolean IsSelected;
 }

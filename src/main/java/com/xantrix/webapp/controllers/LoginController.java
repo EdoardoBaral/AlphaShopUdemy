@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -19,7 +20,7 @@ public class LoginController {
 	
 	private final AuthenticationService authenticationService;
 	
-	@GetMapping(value="/login")
+	@GetMapping(value = "/login")
 	public String getLogin(ModelMap model) {
 		model.addAttribute("Titolo", titolo);
 		model.addAttribute("SottoTitolo", sottotitolo);
@@ -28,9 +29,11 @@ public class LoginController {
 		return "login";
 	}
 	
-	@PostMapping(value="/login")
-	public String gotoWelcomePage(@RequestParam("name") String name, @RequestParam("password") String password, ModelMap model) {
-		if (authenticationService.auth(name, password)) {
+	@PostMapping(value = "/login")
+	public String gotoWelcomePage(@RequestParam String name,
+								  @RequestParam String password,
+								  ModelMap model) {
+		if(authenticationService.auth(name, password)) {
 			model.put("name", name);
 			return "welcome";
 		} else {

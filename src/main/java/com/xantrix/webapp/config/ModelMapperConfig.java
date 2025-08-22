@@ -1,9 +1,9 @@
 package com.xantrix.webapp.config;
 
-import com.xantrix.webapp.dtos.ArticoloDto;
-import com.xantrix.webapp.dtos.BarCodeDto;
-import com.xantrix.webapp.entities.Articolo;
-import com.xantrix.webapp.entities.BarCode;
+import com.xantrix.webapp.dtos.ArticoliDto;
+import com.xantrix.webapp.dtos.BarcodeDto;
+import com.xantrix.webapp.entities.Articoli;
+import com.xantrix.webapp.entities.Barcode;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -14,27 +14,26 @@ import org.springframework.context.annotation.Configuration;
 public class ModelMapperConfig {
 	
 	@Bean
-    ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setSkipNullEnabled(true);
-        modelMapper.addMappings(articoliMapping);
-        modelMapper.addMappings(new PropertyMap<BarCode, BarCodeDto>() {
-			
-            @Override
-            protected void configure() {
+	ModelMapper modelMapper() {
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.getConfiguration().setSkipNullEnabled(true);
+		modelMapper.addMappings(articoliMapping);
+		
+		modelMapper.addMappings(new PropertyMap<Barcode, BarcodeDto>() {
+			@Override
+			protected void configure() {
 				map().setIdTipoArt(source.getIdTipoArt());
-            }
-        });
-
-        modelMapper.addConverter(articoliConverter);
-
-        return modelMapper;
-    }
+			}
+		});
+		
+		modelMapper.addConverter(articoliConverter);
+		
+		return modelMapper;
+	}
 	
-	PropertyMap<Articolo, ArticoloDto> articoliMapping = new PropertyMap<>() {
-	 
+	PropertyMap<Articoli, ArticoliDto> articoliMapping = new PropertyMap<>() {
 		protected void configure() {
-			map().setDataCreazione(source.getDataCreazione());
+			map().setData(source.getDataCreaz());
 			map().setStatus(source.getIdStatoArt());
 		}
 	};

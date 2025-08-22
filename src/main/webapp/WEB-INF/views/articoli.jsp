@@ -1,16 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!doctype html>
 <html lang="en">
 
 	<%@ include file="common/head.jspf" %>
+
 	<body>
 		<%@ include file="common/navbar.jspf" %>
-
 		<section class="content-main">
 			<div class="content-header">
 				<h2 class="content-title">Lista Prodotti</h2>
@@ -31,8 +25,17 @@
 				<header class="card-header">
 					<div class="row gx-3">
 						<div class="col-lg-4 col-md-6 me-auto">
-							<form:form class="form-inline my-2 my-lg-0" id="searchForm" role="search" method="GET" action="${req}/articoli/search">
-								<input type="text" id="filtroInput" name="filtro" value="${filtro}" placeholder="Cerca..." class="form-control">
+							<form:form class="form-inline my-2 my-lg-0"
+									   id="searchForm"
+									   role="search"
+									   method="GET"
+									   action="/alphashop/articoli/search">
+								<input type="text"
+									   id="filtroInput"
+									   name="filtro"
+									   value="${filtro}"
+									   placeholder="Cerca..."
+									   class="form-control">
 							</form:form>
 						</div>
 						<div class="col-lg-2 col-6 col-md-3">
@@ -86,35 +89,43 @@
 							<tbody>
 								<c:forEach items="${articoli}" var="article">
 									<tr>
-										<td class="tbl-string">${article.codArt}</td>
+										<td class="tbl-string">${article.codart}</td>
 										<td class="tbl-string">${article.descrizione}</td>
 										<td class="tbl-string">${article.um}</td>
-										<td class="tbl-string">${article.pzCart}</td>
+										<td class="tbl-string">${article.pzcart}</td>
 										<td class="tbl-string">${article.peso}</td>
 										<td class="tbl-string">
 											<fmt:formatNumber value="${article.prezzo}" type="currency" currencyCode="USD"/>
 										</td>
 										<td class="tbl-string infoBadge">
-											<span class="badge rounded-pill text-bg-primary">Normale</span>
+											<span class="badge rounded-pill text-bg-primary">
+												Normale
+											</span>
 										</td>
 										<td class="tbl-string">
-											<fmt:formatDate value="${article.dataCreazione}" pattern="dd/MM/yyyy"/>
+											<fmt:formatDate value="${article.data}" pattern="dd/MM/yyyy"/>
 										</td>
 										<td class="tbl-string infoBadge">
 											<c:choose>
 												<c:when test="${article.status == '1'}">
-													<span class="badge rounded-pill text-bg-primary">Attivo</span>
+													<span class="badge rounded-pill text-bg-primary">
+														Attivo
+													</span>
 												</c:when>
 												<c:when test="${article.status == '2'}">
-													<span class="badge rounded-pill text-bg-warning">Sospeso</span>
+													<span class="badge rounded-pill text-bg-warning">
+														Sospeso
+													</span>
 												</c:when>
 												<c:when test="${article.status == '3'}">
-													<span class="badge rounded-pill text-bg-danger">Eliminato</span>
+													<span class="badge rounded-pill text-bg-danger">
+														Eliminato
+													</span>
 												</c:when>
 											</c:choose>
 										</td>
 										<td class="text-end">
-											<a href="<spring:url value=" articoli elimina ${article.codArt}"/> " class="btn btn-light text-danger">Elimina</a>
+											<a href="<spring:url value=" articoli elimina ${article.codart}"/> " class="btn btn-light text-danger">Elimina</a>
 											<!-- DropDown Menu -->
 											<div class="dropdown">
 												<a href="#" data-bs-toggle="dropdown" class="btn btn-light">
@@ -128,7 +139,7 @@
 														<a class="dropdown-item" href="#">Info</a>
 													</li>
 													<li>
-														<a class="dropdown-item" href="<spring:url value=" articoli modifica ${article.codArt}"/> ">Modifica</a>
+														<a class="dropdown-item" href="<spring:url value=" articoli modifica ${article.codart}"/> ">Modifica</a>
 													</li>
 												</ul>
 											</div>
@@ -147,8 +158,9 @@
 						<!-- Inizio Blocco Paginazione -->
 						<nav class="float-end mt-3" aria-label="Page navigation">
 							<ul class="pagination">
+
 								<!-- Tasto Next Disabilitato -->
-								<c:if test="${pageNum <= 1}">
+								<c:if test="${PageNum <= 1}">
 									<li class="page-item disabled">
 										<a class="page-link" href="#" aria-label="Previous">
 											<span aria-hidden="true">&laquo;</span>
@@ -156,10 +168,10 @@
 										</a>
 									</li>
 								</c:if>
-								<spring:url value="/articoli/cerca/parametri;paging=${pageNum},0,-1?filtro=${filtro}&selected=${recPage}" var="urlPrevious"/>
+								<spring:url value="/articoli/cerca/parametri;paging=${PageNum},0,-1?filtro=${filtro}&selected=${RecPage}" var="urlPrevious"/>
 
 								<!-- Tasto Next Abilitato -->
-								<c:if test="${pageNum > 1}">
+								<c:if test="${PageNum > 1}">
 									<li class="page-item">
 										<a class="page-link" href="${urlPrevious}" aria-label="Previous">
 											<span aria-hidden="true">&laquo;</span>
@@ -167,27 +179,26 @@
 										</a>
 									</li>
 								</c:if>
-
-								<c:forEach items="${pages}" var="pagine">
-									<spring:url value="/articoli/cerca/parametri;paging=${pagine.pageNum},0,0?filtro=${filtro}&selected=${recPage}" var="urlPage"/>
+								<c:forEach items="${Pages}" var="Pagine">
+									<spring:url value="/articoli/cerca/parametri;paging=${Pagine.pageNum},0,0?filtro=${filtro}&selected=${RecPage}" var="urlPage"/>
 									<c:choose>
-										<c:when test="${pagine.isSelected}">
+										<c:when test="${Pagine.isSelected}">
 											<li class="page-item active">
 												<a class="page-link" href="${urlPage}">
-													${pagine.pageNum}
+													${Pagine.pageNum}
 												</a>
 											</li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item">
 												<a class="page-link" href="${urlPage}">
-													${pagine.pageNum}
+													${Pagine.pageNum}
 												</a>
 											</li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<spring:url value="/articoli/cerca/parametri;paging=${pageNum},0,1?filtro=${filtro}&selected=${recPage}" var="urlNext"/>
+								<spring:url value="/articoli/cerca/parametri;paging=${PageNum},0,1?filtro=${filtro}&selected=${RecPage}" var="urlNext"/>
 
 								<!-- Tasto Previous -->
 								<li class="page-item">
@@ -205,11 +216,6 @@
 		</section>
 
 		<script>
-			function refreshPage() {
-			   var selectedValue = document.getElementById("righe").value;
-			   window.location.href = "?filtro=${filtro}&selected=" + selectedValue ;
-			}
-
 			document.getElementById("filtroInput").addEventListener("click", function() {
 				this.select();
 			});

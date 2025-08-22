@@ -25,13 +25,24 @@ import java.util.Properties;
 public class PersistenceJPAConfig {
 	
 	private final Environment env;
+		
+		/*
+	    private String HBM2DDL_AUTO = env.getProperty("hibernate.hbm2ddl.auto");
+	    private String HIBERNATE_SHOW_SQL = env.getProperty("hibernate.show_sql");
+	    private String HIBERNATE_DIALECT = env.getProperty("hibernate.dialect");
+	    private String DB_PASSWORD = env.getProperty("hibernate.connection.password");
+	    private String DB_USER = env.getProperty("hibernate.connection.username");
+	    private String DB_URL = env.getProperty("hibernate.connection.url");
+	    private String DB_DRIVER_CLASS = env.getProperty("hibernate.connection.driver_class");
+	    */
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
 		em.setPackagesToScan("com.xantrix.webapp.entities");
+		
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 		
@@ -46,6 +57,7 @@ public class PersistenceJPAConfig {
 		String DB_URL = env.getProperty("hibernate.connection.url");
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		
 		dataSource.setDriverClassName(DB_DRIVER_CLASS);
 		dataSource.setUrl(DB_URL);
 		dataSource.setUsername(DB_USER);

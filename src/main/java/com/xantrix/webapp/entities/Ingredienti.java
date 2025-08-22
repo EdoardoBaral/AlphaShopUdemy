@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Ingrediente {
+public class Ingredienti {
 	
 	@Id
 	@Column(name = "CODART")
@@ -21,5 +21,5 @@ public class Ingrediente {
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
-	private Articolo articolo;
+	private Articoli articolo;
 }

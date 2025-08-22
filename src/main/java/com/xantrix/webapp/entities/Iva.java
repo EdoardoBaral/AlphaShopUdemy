@@ -26,5 +26,5 @@ public class Iva {
 	private int aliquota;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "iva")
-	private Set<Articolo> articolo = new HashSet<>();
+	private Set<Articoli> articoli = new HashSet<>();
 }

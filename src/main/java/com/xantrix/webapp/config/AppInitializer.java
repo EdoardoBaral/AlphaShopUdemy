@@ -2,11 +2,11 @@ package com.xantrix.webapp.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInitializer  extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
+		//Auto-generated method stub
 		return null;
 	}
 
@@ -17,6 +17,6 @@ public class AppInitializer  extends AbstractAnnotationConfigDispatcherServletIn
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[]{"/"};
+		return new String[]{"/"};	
 	}
 }
